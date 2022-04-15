@@ -86,7 +86,12 @@
 
        }
 
-
+       //zapamietaj wprowadzone dane
+        $_SESSION['fr_nick']=$nick;
+        $_SESSION['fr_email']=$email;
+        $_SESSION['fr_haslo1']=$haslo1;
+        $_SESSION['fr_haslo2']=$haslo2;
+        if (isset($_POST['regulamin'])) $_SESSION['fr_regulamin'] = true;
 
        require_once "connect.php";
        mysqli_report(MYSQLI_REPORT_STRICT);
@@ -182,7 +187,14 @@
         
         <form method="post">
 
-            Nickname: <br> <input type="text" name="nick"><br>
+            Nickname: <br> <input type="text" value="<?php
+                if(isset($_SESSION['fr_nick']))
+                {
+                    echo $_SESSION['fr_nick'];
+                    unset($_SESSION['fr_nick']);
+                }   
+                     
+                ?>" name="nick"><br>
 
                 <?php
 
@@ -194,7 +206,14 @@
 
                 ?>
 
-            E-mail: <br> <input type="text" name="email"><br>
+            E-mail: <br> <input type="text" value="<?php
+                if(isset($_SESSION['fr_email']))
+                {
+                    echo $_SESSION['fr_email'];
+                    unset($_SESSION['fr_email']);
+                }   
+                     
+                ?>" name="email"><br>
 
                 <?php
 
@@ -207,7 +226,14 @@
                 ?>
 
 
-            Twoje hasło:<br> <input type="password" name="haslo1"><br>
+            Twoje hasło:<br> <input type="password" value="<?php
+                if(isset($_SESSION['fr_haslo1']))
+                {
+                    echo $_SESSION['fr_haslo1'];
+                    unset($_SESSION['fr_haslo1']);
+                }   
+                     
+                ?>" name="haslo1"><br>
 
                 <?php
 
@@ -221,14 +247,28 @@
 
 
 
-            Powtórz hasło:<br> <input type="password" name="haslo2"><br>
+            Powtórz hasło:<br> <input type="password" value="<?php
+                if(isset($_SESSION['fr_haslo2']))
+                {
+                    echo $_SESSION['fr_haslo2'];
+                    unset($_SESSION['fr_haslo2']);
+                }   
+                     
+                ?>" name="haslo2"><br>
 
 
 
 
 
             <label>
-            <input type="checkbox" name="regulamin">Akceptuje regulamin
+            <input type="checkbox" name="regulamin" <?php 
+                   if (isset($_SESSION['fr_regulamin']))
+                   {
+                    echo "checked";   
+                       unset($_SESSION['fr_regulamin']);
+                   }
+                   
+                   ?>>Akceptuje regulamin
             </label>
 
                 <?php
